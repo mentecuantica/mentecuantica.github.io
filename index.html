@@ -1,1057 +1,689 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RegMed Georgia - Калькулятор стоимости</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <title>Efimov Iurii - Python Developer & Security Specialist</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap');
+
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9fafb;
+            color: #334155;
         }
 
-        .pricing-card {
-            transition: all 0.3s ease;
+        h1, h2, h3, h4, h5 {
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .telegram-button {
-            background: linear-gradient(45deg, #0088cc, #0099ff);
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .telegram-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
-        }
-
-        .checkbox-custom {
-            width: 1.25rem;
-            height: 1.25rem;
-            border: 2px solid #4F46E5;
-            border-radius: 4px;
-            margin-right: 0.75rem;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-        }
-
-        .checkbox-custom::after {
+        .timeline-item:not(:last-child)::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
+            left: 14px;
+            top: 24px;
+            height: calc(100% - 24px);
+            width: 2px;
+            background-color: #3b82f6;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background-color: #dbeafe;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
             height: 100%;
-            background-color: #4F46E5;
-            transform: scale(0);
-            transition: transform 0.2s ease;
+            background-color: #3b82f6;
+            border-radius: 4px;
+            transition: width 0.5s ease-in-out;
         }
 
-        .checkbox-input:checked + .checkbox-custom::after {
-            transform: scale(1);
+        .section-title {
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
         }
 
-        .checkbox-input {
+        .section-title::after {
+            content: '';
             position: absolute;
-            opacity: 0;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background-color: #1e40af;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+            transition: transform 0.3s ease;
+        }
+
+        .tab {
             cursor: pointer;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
         }
 
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            user-select: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            transition: background-color 0.2s ease;
-        }
-
-        .checkbox-label:hover {
-            background-color: rgba(79, 70, 229, 0.1);
-        }
-
-        .language-pill {
-            display: inline-flex;
-            align-items: center;
-            background-color: #EEF2FF;
-            color: #4338CA;
-            padding: 0.5rem 1rem;
-            border-radius: 9999px;
+        .tab-active {
+            border-bottom: 2px solid #3b82f6;
+            color: #3b82f6;
             font-weight: 500;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
         }
 
-        .language-pill:hover {
-            background-color: #E0E7FF;
+        .tab-content {
+            display: none;
         }
 
-        .language-pill.active {
-            background-color: #4F46E5;
-            color: white;
+        .tab-content-active {
+            display: block;
         }
 
-        .checkmark {
-            width: 8px;
-            height: 16px;
-            border-right: 2px solid white;
-            border-bottom: 2px solid white;
-            transform: rotate(45deg);
-            margin-top: -4px;
-            margin-left: 5px;
-        }
+        @media print {
+            .print-col-1 {
+                float: left;
+                width: 30%;
+            }
 
-        #floating-ui {
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            width: 320px;
-            max-width: calc(100vw - 2rem);
+            .print-col-2 {
+                float: right;
+                width: 68%;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-50">
-<!-- Header -->
-<header class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-    <div class="container mx-auto px-4 py-12">
-        <nav class="flex justify-between items-center mb-12">
-            <div class="flex items-center">
-                <span class="text-2xl font-bold">RegMed Georgia</span>
-            </div>
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#services" class="hover:text-indigo-200 transition-colors">Услуги</a>
-                <a href="#calculator" class="hover:text-indigo-200 transition-colors">Калькулятор</a>
-                <a href="#contact" class="hover:text-indigo-200 transition-colors">Контакты</a>
-            </div>
-            <a href="https://t.me/amoraroma" target="_blank"
-               class="telegram-button px-4 py-2 rounded-lg font-medium flex items-center">
-                <svg viewBox="0 0 24 24" width="20" height="20" fill="white">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.06-.2-.08-.06-.19-.04-.27-.02-.12.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.47-.81-.26-1.45-.4-1.4-.85.03-.22.45-.45 1.26-.68 4.93-2.15 8.24-3.57 9.95-4.26.84-.35 2.43-1.05 2.77-1.05.08 0 .25.02.36.12.1.08.12.22.13.31 0 .06.01.12 0 .17z"/>
-                </svg>
-                <span class="ml-2">Написать нам</span>
-            </a>
-        </nav>
-
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Разработка сайта для вашей клиники</h1>
-                <p class="text-xl mb-8 text-indigo-100">Создадим современный медицинский портал с учетом ваших
-                    потребностей и бюджета</p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <a href="#calculator"
-                       class="bg-white text-indigo-600 hover:bg-indigo-50 px-8 py-3 rounded-lg font-medium shadow-lg transition-all text-center">Рассчитать
-                        стоимость</a>
-                    <a href="#services"
-                       class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-indigo-600 px-8 py-3 rounded-lg font-medium transition-all text-center">Узнать
-                        больше</a>
-                </div>
-            </div>
-            <iframe
-                    width="600"
-                    height="400"
-                    src="https://www.youtube.com/embed/qSGdn3RXrT4"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowfullscreen
-                    class="rounded-lg shadow-2xl">
-            </iframe>
-        </div>
-
-    </div>
-    </div>
-</header>
-
-<!-- Base Services Section -->
-<section id="services" class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-4">Базовая разработка</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Мы предлагаем полный комплекс услуг для создания
-                функционального медицинского сайта</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <!-- Card 1 -->
-            <div class="pricing-card bg-white rounded-xl shadow-lg p-6">
-                <div class="text-center mb-6">
-                    <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 text-indigo-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm0 2h12v7H4V5zm0 9v1h12v-1H4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-2xl mb-2">Дизайн</h3>
-                    <p class="text-gray-600">Создание уникальных макетов страниц</p>
-                </div>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        UI/UX дизайн
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Прототипирование
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Брендирование
-                    </li>
-                </ul>
-                <div class="text-center font-bold text-2xl">150 000 ₽</div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="pricing-card bg-white rounded-xl shadow-lg p-6">
-                <div class="text-center mb-6">
-                    <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 text-indigo-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-2xl mb-2">Front-End</h3>
-                    <p class="text-gray-600">Верстка с адаптивностью под разные устройства</p>
-                </div>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Адаптивная верстка
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Интерактивные элементы
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Оптимизация скорости
-                    </li>
-                </ul>
-                <div class="text-center font-bold text-2xl">100 000 ₽</div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="pricing-card bg-white rounded-xl shadow-lg p-6">
-                <div class="text-center mb-6">
-                    <div class="inline-flex items-center justify-center h-16 w-16 rounded-full bg-indigo-100 text-indigo-600 mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-2xl mb-2">Back-End</h3>
-                    <p class="text-gray-600">Программирование функционала и безопасность</p>
-                </div>
-                <ul class="space-y-3 mb-6">
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Интеграция CMS/CRM
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Программирование функций
-                    </li>
-                    <li class="flex items-center">
-                        <svg class="h-5 w-5 text-indigo-500 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                        Меры безопасности
-                    </li>
-                </ul>
-                <div class="text-center font-bold text-2xl">250 000 ₽</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Interactive Calculator Section -->
-<section id="calculator" class="py-16 bg-gray-50">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-4">Интерактивный калькулятор</h2>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Выберите необходимые услуги, чтобы рассчитать стоимость
-                проекта</p>
-        </div>
-
-        <div class="bg-white rounded-xl shadow-lg p-6 max-w-4xl mx-auto">
-            <div class="mb-8">
-                <h3 class="text-xl font-semibold mb-4">Базовые услуги</h3>
-
-                <!-- Дизайн (раскрывающийся список) -->
-                <div class="mb-4 border rounded-lg overflow-hidden">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 cursor-pointer service-toggle"
-                         data-target="design-details">
-                        <div class="flex items-center">
-                            <input type="checkbox" class="checkbox-input" data-service="design" data-price="150000"
-                                   checked>
-                            <div class="checkbox-custom flex items-center justify-center">
-                                <div class="checkmark"></div>
-                            </div>
-                            <span class="font-medium">Дизайн <span class="text-gray-500 ml-2">150 000 ₽</span></span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="h-5 w-5 transform transition-transform service-arrow" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <div class="h-0 overflow-hidden transition-all duration-300 service-details" id="design-details">
-                        <div class="p-4 bg-white border-t">
-                            <div class="space-y-3">
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="design"
-                                           data-subservice="ui-ux" data-price="70000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>UI/UX дизайн <span class="text-gray-500 ml-2">70 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="design"
-                                           data-subservice="prototyping" data-price="50000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Прототипирование <span class="text-gray-500 ml-2">50 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="design"
-                                           data-subservice="branding" data-price="30000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Брендирование <span class="text-gray-500 ml-2">30 000 ₽</span></span>
-                                </label>
-                            </div>
-                            <div class="mt-3 text-sm text-gray-600">
-                                <p>Включает разработку уникального дизайна всех страниц сайта, создание прототипов
-                                    интерфейса и адаптацию под фирменный стиль клиники.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Front-End (раскрывающийся список) -->
-                <div class="mb-4 border rounded-lg overflow-hidden">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 cursor-pointer service-toggle"
-                         data-target="frontend-details">
-                        <div class="flex items-center">
-                            <input type="checkbox" class="checkbox-input" data-service="frontend" data-price="100000"
-                                   checked>
-                            <div class="checkbox-custom flex items-center justify-center">
-                                <div class="checkmark"></div>
-                            </div>
-                            <span class="font-medium">Front-End <span class="text-gray-500 ml-2">100 000 ₽</span></span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="h-5 w-5 transform transition-transform service-arrow" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <div class="h-0 overflow-hidden transition-all duration-300 service-details" id="frontend-details">
-                        <div class="p-4 bg-white border-t">
-                            <div class="space-y-3">
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="frontend"
-                                           data-subservice="adaptive" data-price="40000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Адаптивная верстка <span class="text-gray-500 ml-2">40 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="frontend"
-                                           data-subservice="interactive" data-price="35000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Интерактивные элементы <span class="text-gray-500 ml-2">35 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="frontend"
-                                           data-subservice="optimization" data-price="25000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Оптимизация скорости <span class="text-gray-500 ml-2">25 000 ₽</span></span>
-                                </label>
-                            </div>
-                            <div class="mt-3 text-sm text-gray-600">
-                                <p>Верстка всех страниц сайта с адаптацией под различные устройства (компьютер, планшет,
-                                    смартфон), создание анимаций и интерактивных элементов.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Back-End (раскрывающийся список) -->
-                <div class="mb-4 border rounded-lg overflow-hidden">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 cursor-pointer service-toggle"
-                         data-target="backend-details">
-                        <div class="flex items-center">
-                            <input type="checkbox" class="checkbox-input" data-service="backend" data-price="250000"
-                                   checked>
-                            <div class="checkbox-custom flex items-center justify-center">
-                                <div class="checkmark"></div>
-                            </div>
-                            <span class="font-medium">Back-End <span class="text-gray-500 ml-2">250 000 ₽</span></span>
-                        </div>
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             class="h-5 w-5 transform transition-transform service-arrow" viewBox="0 0 20 20"
-                             fill="currentColor">
-                            <path fill-rule="evenodd"
-                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                  clip-rule="evenodd"/>
-                        </svg>
-                    </div>
-                    <div class="h-0 overflow-hidden transition-all duration-300 service-details" id="backend-details">
-                        <div class="p-4 bg-white border-t">
-                            <div class="space-y-3">
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="backend"
-                                           data-subservice="cms-crm" data-price="100000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Интеграция CMS/CRM <span class="text-gray-500 ml-2">100 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="backend"
-                                           data-subservice="programming" data-price="90000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Программирование функций <span
-                                            class="text-gray-500 ml-2">90 000 ₽</span></span>
-                                </label>
-                                <label class="checkbox-label flex items-center">
-                                    <input type="checkbox" class="checkbox-input" data-parent="backend"
-                                           data-subservice="security" data-price="60000" checked>
-                                    <div class="checkbox-custom flex items-center justify-center">
-                                        <div class="checkmark"></div>
-                                    </div>
-                                    <span>Меры безопасности <span class="text-gray-500 ml-2">60 000 ₽</span></span>
-                                </label>
-                            </div>
-                            <div class="mt-3 text-sm text-gray-600">
-                                <p>Разработка серверной части сайта, интеграция системы управления контентом,
-                                    программирование всех функций, настройка защиты данных.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mb-8">
-                <h3 class="text-xl font-semibold mb-4">Дополнительные возможности</h3>
-                <div class="space-y-2">
-                    <label class="checkbox-label flex items-center">
-                        <input type="checkbox" class="checkbox-input" data-service="payment" data-price="30000">
-                        <div class="checkbox-custom flex items-center justify-center">
-                            <div class="checkmark"></div>
-                        </div>
-                        <span>Платежные системы <span class="text-gray-500 ml-2">30 000 ₽</span></span>
-                    </label>
-                    <label class="checkbox-label flex items-center">
-                        <input type="checkbox" class="checkbox-input" data-service="telemedicine" data-price="250000">
-                        <div class="checkbox-custom flex items-center justify-center">
-                            <div class="checkmark"></div>
-                        </div>
-                        <span>Телемедицина <span class="text-gray-500 ml-2">250 000 ₽</span></span>
-                    </label>
-                    <label class="checkbox-label flex items-center">
-                        <input type="checkbox" class="checkbox-input" data-service="seo" data-price="50000">
-                        <div class="checkbox-custom flex items-center justify-center">
-                            <div class="checkmark"></div>
-                        </div>
-                        <span>SEO-оптимизация <span class="text-gray-500 ml-2">50 000 ₽</span></span>
-                    </label>
-                </div>
-            </div>
-
-            <div id="languages">
-                <h3 class="text-xl font-semibold mb-4">Перевод на дополнительные языки</h3>
-                <p class="text-gray-600 mb-4">Грузинский и английский языки уже включены в базовую стоимость</p>
-
-                <div class="mb-6">
-                    <div class="language-pill" data-language="russian" data-price="175000">
-                        Русский
-                    </div>
-                    <div class="language-pill" data-language="arabic" data-price="190000">
-                        Арабский
-                    </div>
-                    <div class="language-pill" data-language="chinese" data-price="160000">
-                        Китайский
-                    </div>
-                </div>
-            </div>
-
-            <div class="border-t pt-6 mt-6">
-                <div class="flex justify-between items-center text-xl font-semibold">
-                    <span>Итоговая стоимость:</span>
-                    <span id="total-price" class="text-indigo-600">500 000 ₽</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="py-16 bg-indigo-600 text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl font-bold mb-6">Готовы начать проект?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">Свяжитесь с нами для уточнения деталей и мы подготовим для вас
-            индивидуальное предложение</p>
-        <a href="https://t.me/amoraroma" target="_blank"
-           class="inline-block bg-white text-indigo-600 hover:bg-indigo-100 px-8 py-3 rounded-lg font-medium shadow-lg transition-all">
-            Написать в Telegram
-        </a>
-    </div>
-</section>
-
-<!-- Floating UI -->
-<div class="fixed bottom-6 right-6 z-50 transition-all duration-300 transform hover:scale-105" id="floating-ui">
-    <div class="bg-white rounded-xl shadow-xl overflow-hidden">
-        <!-- Collapsed View -->
-        <div class="flex items-center justify-between bg-indigo-600 text-white p-4 cursor-pointer" id="floating-header">
-            <div class="flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                          d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/>
-                </svg>
+    <div class="container mx-auto bg-white shadow-lg max-w-6xl">
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-8 px-8 relative">
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
                 <div>
-                    <div class="text-sm font-medium">Ваш проект</div>
-                    <div id="floating-price" class="text-xl font-bold">500 000 ₽</div>
+                    <h1 class="text-4xl font-bold">Efimov Iurii</h1>
+                    <h2 class="text-xl mt-2">Python Developer & Security Specialist</h2>
+                </div>
+                <div class="mt-4 md:mt-0 bg-white bg-opacity-20 px-4 py-2 rounded-lg">
+                    <p class="text-lg">
+                        <i class="fas fa-map-marker-alt mr-2"></i> Tbilisi
+                        <span class="mx-2">|</span>
+                        <i class="fas fa-birthday-cake mr-2"></i> 5 January 1986 (39 years)
+                    </p>
                 </div>
             </div>
-            <div class="ml-4">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transform transition-transform duration-300"
-                     id="toggle-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                </svg>
+        </header>
+
+        <div class="flex flex-col md:flex-row">
+            <!-- Sidebar/Left Column -->
+            <div class="w-full md:w-1/3 bg-gray-50 p-6 print-col-1">
+                <!-- Contact Information -->
+                <div class="mb-8">
+<h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-address-card mr-2"></i> Contact Information
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="contact-item flex items-center">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fab fa-telegram"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Telegram (preferred)</p>
+                                <p>@bienbien69</p>
+                            </div>
+                        </li>
+                        <li class="contact-item flex items-center">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Phone</p>
+                                <p>+995 (511) 250966</p>
+                            </div>
+                        </li>
+                        <li class="contact-item flex items-center">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Email</p>
+                                <p>yura.karas@gmail.com</p>
+                            </div>
+                        </li>
+                        <li class="contact-item flex items-center">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">LinkedIn</p>
+                                <a href="https://www.linkedin.com/in/iurii-efimov-ba497a9b/" target="_blank" class="text-blue-600 hover:underline">iurii-efimov-ba497a9b</a>
+                            </div>
+                        </li>
+                        <li class="contact-item flex items-center">
+                            <div class="bg-blue-600 text-white rounded-full p-2 mr-3">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Github</p>
+                                <a href="https://github.com/mentecuantica" target="_blank" class="text-blue-600 hover:underline">mentecuantica</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Languages -->
+                <div class="mb-8">
+                    <h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-language mr-2"></i> Languages
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Russian</span>
+                                <span class="text-sm text-gray-600">Native</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">English</span>
+                                <span class="text-sm text-gray-600">B1 - Upper Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+<div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Spanish</span>
+                                <span class="text-sm text-gray-600">A1 - Basic</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 25%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Skills -->
+                <div class="mb-8">
+                    <h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-code mr-2"></i> Technical Skills
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Python</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Django/Flask/FastAPI</span>
+                                <span class="text-sm text-gray-600">Expert</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">SQL (PostgreSQL/MySQL)</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">NoSQL (MongoDB)</span>
+                                <span class="text-sm text-gray-600">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Docker</span>
+                                <span class="text-sm text-gray-600">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 70%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Cybersecurity</span>
+                                <span class="text-sm text-gray-600">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+<div class="flex justify-between mb-1">
+                                <span class="font-medium">Java</span>
+                                <span class="text-sm text-gray-600">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Skills -->
+                <div class="mb-8">
+                    <h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-tools mr-2"></i> Additional Tools
+                    </h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Git</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Redis</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">RabbitMQ</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Celery</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Linux CLI</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Bash</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">CI/CD</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Selenium</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">jQuery</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">REST APIs</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">SQLAlchemy</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Alembic</span>
+                        <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Telegram APIs</span>
+                    </div>
+                </div>
+
+                <!-- Education -->
+                <div class="mb-8">
+                    <h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-graduation-cap mr-2"></i> Education
+                    </h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium text-lg">Ural Federal University</h4>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">2010</span>
+                            </div>
+                            <p class="text-gray-600">Faculty of Accelerated Education</p>
+                            <p>Software for Computing Technology and Automated Systems</p>
+                        </div>
+                        <div>
+                            <div class="flex justify-between items-center">
+                                <h4 class="font-medium text-lg">Yekaterinburg College of Transport Building</h4>
+                                <span class="bg-blue-100 text-blue-800 px-2 py-1 rounded text-xs">2006</span>
+                            </div>
+                            <p>Software for Computing Technology and Automated Systems</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div>
+                    <h3 class="section-title text-xl font-semibold text-blue-800">
+                        <i class="fas fa-info-circle mr-2"></i> Additional Info
+                    </h3>
+<ul class="list-disc pl-5 space-y-2">
+                        <li>Driver's license category B</li>
+                        <li>Citizenship: Russia</li>
+                        <li>Work permit: Russia</li>
+                        <li>Open to remote work globally</li>
+                        <li>Ready to relocate</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main Content/Right Column -->
+            <div class="w-full md:w-2/3 p-6 print-col-2">
+                <!-- About Me -->
+                <div class="mb-10">
+                    <h3 class="section-title text-2xl font-semibold text-blue-800">
+                        <i class="fas fa-user mr-2"></i> About Me
+                    </h3>
+                    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                        <p class="mb-3">Experienced Python developer with over 9 years of professional experience spanning backend development, cybersecurity, and teaching. Strong expertise in developing high-load web applications, RESTful APIs, and complex automation solutions.</p>
+                        <p>I possess analytical thinking, conversational English skills, strong communication abilities, determination, and the ability to independently research solutions. I have a good understanding of OOP principles and practical application of design patterns to create efficient, maintainable code.</p>
+                    </div>
+                </div>
+
+                <!-- Tabbed Experience Section -->
+                <div class="mb-10">
+                    <h3 class="section-title text-2xl font-semibold text-blue-800">
+                        <i class="fas fa-briefcase mr-2"></i> Work Experience
+                    </h3>
+
+                    <!-- Timeline view of work experience -->
+                    <div class="space-y-10">
+                        <!-- Job 1 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-chalkboard-teacher text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Python Teacher</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Jan 2024 - Dec 2024</span>
+                                    </div>
+                                </div>
+                                <h5 class="text-md font-medium text-gray-700 mb-2">Urban University LLC "EDEX", Kazan</h5>
+                                <p class="mb-3">Taught Python programming to students through a comprehensive curriculum covering both fundamentals and advanced concepts.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Conducted webinars and provided detailed feedback to students</li>
+                                    <li>Taught frameworks & libraries: Django, FastAPI, aiogram, SQLAlchemy, Alembic</li>
+                                    <li>Focused on practical, project-based learning approaches</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 2 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-laptop-code text-sm"></i>
+                            </div>
+                            <div>
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Python Programmer (Freelance)</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Nov 2021 - Jan 2024</span>
+                                    </div>
+                                </div>
+                                <p class="mb-3">Worked on diverse Python projects as a freelancer, delivering customized solutions for various clients.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Developed and maintained Telegram bots using aiogram, telebot, and Telethon libraries</li>
+                                    <li>Built web scrapers capable of bypassing Captcha protection mechanisms</li>
+                                    <li>Created web services using Django, Flask, and FastAPI frameworks</li>
+                                    <li>Implemented integrations with various APIs and services</li>
+                                    <li>Worked with databases including PostgreSQL, MySQL, and MongoDB</li>
+                                    <li>Optimized applications for performance and scalability</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 3 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-server text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Backend Developer (Python)</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Nov 2020 - Oct 2021</span>
+                                    </div>
+                                </div>
+                                <h5 class="text-md font-medium text-gray-700 mb-2">Jetstyle</h5>
+                                <p class="mb-3">Developed high-load web applications using Python frameworks and technologies.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Worked with Wagtail CMS for content management solutions</li>
+                                    <li>Designed and implemented RESTful APIs</li>
+                                    <li>Implemented caching strategies and sitemaps for improved performance</li>
+                                    <li>Created unit tests for code reliability</li>
+                                    <li>Utilized Celery for asynchronous task processing</li>
+                                    <li>Managed message queuing with RabbitMQ</li>
+                                    <li>Participated in CI/CD pipeline development and code reviews</li>
+                                    <li>Enhanced functionality for export.ebay.com</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 4 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-chalkboard text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+<h4 class="text-xl font-semibold">Programming Tutor (Freelance)</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Jul 2019 - Oct 2020</span>
+                                    </div>
+                                </div>
+                                <p class="mb-3">Provided personalized programming education to students of various skill levels.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Taught Python, JavaScript, and SQL programming languages</li>
+                                    <li>Instructed on OOP concepts, data structures, and algorithms</li>
+                                    <li>Guided students through web framework implementations</li>
+                                    <li>Covered API development and database integration techniques</li>
+                                    <li>Mentored students through portfolio project development</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 5 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-shield-alt text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Cybersecurity Specialist / Programmer-Developer</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Nov 2017 - Jun 2019</span>
+                                    </div>
+                                </div>
+                                <h5 class="text-md font-medium text-gray-700 mb-2">ROLT ENERGY SYSTEMS LLC</h5>
+                                <p class="mb-3">Managed cybersecurity initiatives while developing internal monitoring tools.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Maintained cybersecurity measures across company systems</li>
+                                    <li>Conducted virus analysis and threat mitigation</li>
+                                    <li>Developed internal monitoring systems using Django</li>
+                                    <li>Performed penetration testing and vulnerability assessments</li>
+                                    <li>Created data analysis scripts for security event monitoring</li>
+                                </ul>
+                                <p class="mt-2 text-sm font-medium">Recommendation available from: Dmitry Vokhmintsev, Head of IT Department</p>
+                            </div>
+                        </div>
+
+                        <!-- Job 6 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fab fa-java text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Java Developer</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Mar 2009 - Dec 2009</span>
+                                    </div>
+                                </div>
+<h5 class="text-md font-medium text-gray-700 mb-2">LLC "MOKO"</h5>
+                                <p class="mb-3">Developed mobile social network solutions using Java technologies.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Utilized JavaEE and Netty frameworks for application development</li>
+                                    <li>Implemented MySQL database solutions</li>
+                                    <li>Developed asynchronous networking functionality</li>
+                                    <li>Created Bluetooth-based connectivity features for mobile devices</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Job 7 -->
+                        <div class="timeline-item relative pl-10">
+                            <div class="absolute left-0 top-1 bg-blue-600 rounded-full w-7 h-7 flex items-center justify-center text-white">
+                                <i class="fas fa-globe text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                                    <h4 class="text-xl font-semibold">Web Developer</h4>
+                                    <div class="mt-1 sm:mt-0">
+                                        <span class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">Jan 2008 - Dec 2008</span>
+                                    </div>
+                                </div>
+                                <h5 class="text-md font-medium text-gray-700 mb-2">Stelur telecom</h5>
+                                <p class="mb-3">Early career role developing web applications and messaging solutions.</p>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                                    <li>Built ICQ bots using Python with the Twisted framework</li>
+                                    <li>Developed PHP backend functionality</li>
+                                    <li>Implemented MySQL database solutions</li>
+                                    <li>Conducted packet and network analysis</li>
+                                    <li>Created an XMPP-based messenger</li>
+                                    <li>Worked on frontend design and implementation</li>
+                                    <li>Collaborated within a small team environment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- How I Work Section -->
+                <div class="mb-10">
+                    <h3 class="section-title text-2xl font-semibold text-blue-800">
+                        <i class="fas fa-cogs mr-2"></i> Professional Approach
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                    <i class="fas fa-sitemap"></i>
+                                </div>
+                                <h4 class="text-lg font-medium">OOP & Design Patterns</h4>
+                            </div>
+                            <p>Strong understanding of object-oriented programming principles and practical application of design patterns to create maintainable, efficient code.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-3">
+<div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                    <i class="fas fa-magnifying-glass-chart"></i>
+                                </div>
+                                <h4 class="text-lg font-medium">Analytical Thinking</h4>
+                            </div>
+                            <p>Approach problems methodically with strong analytical skills, breaking down complex issues into manageable components to find optimal solutions.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4 class="text-lg font-medium">Communication</h4>
+                            </div>
+                            <p>Effective communication in both English and Russian, ensuring clear understanding of requirements and expectations throughout project lifecycles.</p>
+                        </div>
+                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex items-center mb-3">
+                                <div class="bg-blue-100 text-blue-600 p-2 rounded-full mr-3">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <h4 class="text-lg font-medium">Self-Directed Learning</h4>
+                            </div>
+                            <p>Strong ability to independently research solutions and acquire new skills as needed, staying current with evolving technologies and best practices.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Availability Section -->
+                <div>
+                    <h3 class="section-title text-2xl font-semibold text-blue-800">
+                        <i class="fas fa-calendar-check mr-2"></i> Work Preferences
+                    </h3>
+                    <div class="bg-white p-5 rounded-lg border border-gray-200">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="text-lg font-medium mb-2">Employment Types</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Full-time positions</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Part-time roles</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Project-based work</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Volunteering opportunities</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-medium mb-2">Work Schedule</h4>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center">
+<i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Full day schedule</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Flexible hours</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-check text-green-500 mr-2"></i>
+                                        <span>Remote work</span>
+                                    </li>
+                                    <li class="flex items-center">
+                                        <i class="fas fa-globe text-blue-500 mr-2"></i>
+                                        <span>Open to relocation</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Expanded Content -->
-        <div class="h-0 overflow-hidden transition-all duration-300" id="floating-content">
-            <div class="p-4 bg-white">
-                <h3 class="font-semibold text-gray-800 mb-2">Выбранные услуги:</h3>
-
-                <div class="mb-3">
-                    <div class="flex justify-between text-sm mb-1">
-                        <span>Базовая разработка</span>
-                        <span>500 000 ₽</span>
-                    </div>
-                    <div class="text-xs text-gray-500">Дизайн, Front-End, Back-End</div>
-                </div>
-
-                <div id="selected-services" class="mb-3">
-                    <!-- Заполняется JS -->
-                </div>
-
-                <div id="selected-languages" class="mb-3">
-                    <!-- Заполняется JS -->
-                </div>
-
-                <div class="border-t pt-2 mb-2">
-                    <div class="flex justify-between font-semibold">
-                        <span>Итого:</span>
-                        <span id="floating-total" class="text-indigo-600">500 000 ₽</span>
-                    </div>
-                </div>
-
-
-
-                <a href="https://sfu.mirotalk.com/join/regmed" target="_blank"
-                   class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white text-center py-2 rounded-lg transition-colors duration-300">
-                    Получить предложение
-                </a>
-            </div>
-        </div>
+        <!-- Footer -->
+        <footer class="bg-gray-100 p-6 text-center text-gray-600 border-t border-gray-200">
+            <p>© 2025 Efimov Iurii - Python Developer & Security Specialist</p>
+        </footer>
     </div>
-</div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Variables for price tracking
-        let totalPrice = 0;
-        let selectedLanguages = [];
-        let serviceState = {
-            design: {checked: true, price: 150000, subservices: {}},
-            frontend: {checked: true, price: 100000, subservices: {}},
-            backend: {checked: true, price: 250000, subservices: {}}
-        };
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add interactivity to tabs if needed
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-        // Get DOM elements
-        const totalPriceElement = document.getElementById('total-price');
-        const floatingPriceElement = document.getElementById('floating-price');
-        const floatingTotalElement = document.getElementById('floating-total');
-        const additionalServicesCheckboxes = document.querySelectorAll('input[data-service]:not([data-parent])');
-        const subserviceCheckboxes = document.querySelectorAll('input[data-parent]');
-        const languagePills = document.querySelectorAll('.language-pill');
-        const floatingHeader = document.getElementById('floating-header');
-        const floatingContent = document.getElementById('floating-content');
-        const toggleIcon = document.getElementById('toggle-icon');
-        const selectedServicesContainer = document.getElementById('selected-services');
-        const selectedLanguagesContainer = document.getElementById('selected-languages');
-        const serviceToggles = document.querySelectorAll('.service-toggle');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-target');
 
-        // Format price function
-        function formatPrice(price) {
-            return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
-        }
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('tab-active'));
 
-        // Set up toggle handlers for service details sections
-        serviceToggles.forEach(toggle => {
-            toggle.addEventListener('click', function () {
-                const targetId = this.getAttribute('data-target');
-                const targetElement = document.getElementById(targetId);
-                const arrowElement = this.querySelector('.service-arrow');
+                    // Hide all tab contents
+                    tabContents.forEach(content => {
+                        content.classList.remove('tab-content-active');
+                    });
 
-                if (targetElement.style.height === 'auto' ||
-                    targetElement.style.height === targetElement.scrollHeight + 'px') {
-                    targetElement.style.height = '0';
-                    arrowElement.classList.remove('rotate-180');
-                } else {
-                    targetElement.style.height = 'auto';
-                    const height = targetElement.scrollHeight + 'px';
-                    targetElement.style.height = height;
-                    arrowElement.classList.add('rotate-180');
-                }
-            });
-        });
+                    // Add active class to clicked tab
+                    tab.classList.add('tab-active');
 
-        // Calculate initial price
-        function calculateInitialPrice() {
-            totalPrice = 0;
-
-            // Add prices of checked main services
-            additionalServicesCheckboxes.forEach(checkbox => {
-                if (checkbox.checked) {
-                    const serviceName = checkbox.dataset.service;
-                    const servicePrice = parseInt(checkbox.dataset.price);
-
-                    if (['design', 'frontend', 'backend'].includes(serviceName)) {
-                        serviceState[serviceName] = {
-                            checked: true,
-                            price: servicePrice,
-                            subservices: {}
-                        };
-                    }
-
-                    totalPrice += servicePrice;
-                }
-            });
-
-            // Add prices of checked subservices
-            subserviceCheckboxes.forEach(checkbox => {
-                const parentService = checkbox.dataset.parent;
-                const subservice = checkbox.dataset.subservice;
-                const subservicePrice = parseInt(checkbox.dataset.price);
-
-                if (serviceState[parentService] && serviceState[parentService].subservices) {
-                    serviceState[parentService].subservices[subservice] = {
-                        checked: checkbox.checked,
-                        price: subservicePrice
-                    };
-                }
-            });
-
-            // Add prices of selected languages
-            languagePills.forEach(pill => {
-                if (pill.classList.contains('active')) {
-                    const language = pill.dataset.language;
-                    const languagePrice = parseInt(pill.dataset.price);
-                    selectedLanguages.push(language);
-                    totalPrice += languagePrice;
-                }
-            });
-
-            updatePrices();
-        }
-
-        // Update displayed prices
-        function updatePrices() {
-            totalPriceElement.textContent = formatPrice(totalPrice);
-            floatingPriceElement.textContent = formatPrice(totalPrice);
-            floatingTotalElement.textContent = formatPrice(totalPrice);
-            updateFloatingUI();
-        }
-
-        // Toggle floating UI
-        let isFloatingUiExpanded = false;
-
-        floatingHeader.addEventListener('click', function () {
-            isFloatingUiExpanded = !isFloatingUiExpanded;
-
-            if (isFloatingUiExpanded) {
-                floatingContent.style.height = 'auto';
-                const height = floatingContent.scrollHeight + 'px';
-                floatingContent.style.height = height;
-                toggleIcon.classList.add('rotate-180');
-            } else {
-                floatingContent.style.height = '0';
-                toggleIcon.classList.remove('rotate-180');
-            }
-        });
-
-        // Function to update service state and price when a main service checkbox changes
-        function handleMainServiceChange(checkbox) {
-            const serviceName = checkbox.dataset.service;
-            const servicePrice = parseInt(checkbox.dataset.price);
-            const isChecked = checkbox.checked;
-
-            if (!['design', 'frontend', 'backend'].includes(serviceName)) {
-                // Для дополнительных услуг просто пересчитываем цену
-                if (isChecked) {
-                    totalPrice += servicePrice;
-                } else {
-                    totalPrice -= servicePrice;
-                }
-                updatePrices();
-                return;
-            }
-
-            // Update service state
-            serviceState[serviceName].checked = isChecked;
-
-            // Update related subservice checkboxes
-            const subserviceCheckboxes = document.querySelectorAll(`input[data-parent="${serviceName}"]`);
-            subserviceCheckboxes.forEach(subCheckbox => {
-                subCheckbox.disabled = !isChecked;
-                if (!isChecked) {
-                    subCheckbox.checked = false;
-                } else {
-                    subCheckbox.checked = true;
-                }
-
-                const subserviceName = subCheckbox.dataset.subservice;
-                if (serviceState[serviceName].subservices[subserviceName]) {
-                    serviceState[serviceName].subservices[subserviceName].checked = subCheckbox.checked;
-                }
-            });
-
-            // Recalculate total price
-            recalculateTotalPrice();
-        }
-
-        // Function to update service state and price when a subservice checkbox changes
-        function handleSubserviceChange(checkbox) {
-            const parentService = checkbox.dataset.parent;
-            const subservice = checkbox.dataset.subservice;
-            const isChecked = checkbox.checked;
-
-            // Update service state
-            if (serviceState[parentService] &&
-                serviceState[parentService].subservices &&
-                serviceState[parentService].subservices[subservice]) {
-                serviceState[parentService].subservices[subservice].checked = isChecked;
-            }
-
-            // Recalculate total price
-            recalculateTotalPrice();
-        }
-
-        // Recalculate total price based on service state
-        function recalculateTotalPrice() {
-            totalPrice = 0;
-
-            // Calculate price for each main service
-            for (const serviceName in serviceState) {
-                const service = serviceState[serviceName];
-
-                if (service.checked) {
-                    // For main services that are checked, use the sum of the checked subservices
-                    let serviceTotal = 0;
-                    let allSubservicesUnchecked = true;
-
-                    for (const subserviceName in service.subservices) {
-                        const subservice = service.subservices[subserviceName];
-                        if (subservice.checked) {
-                            serviceTotal += subservice.price;
-                            allSubservicesUnchecked = false;
-                        }
-                    }
-
-                    // If all subservices are unchecked but the main service is checked,
-                    // use the main service price
-                    if (allSubservicesUnchecked) {
-                        serviceTotal = service.price;
-                    }
-
-                    totalPrice += serviceTotal;
-                }
-            }
-
-            // Add prices of additional services
-            additionalServicesCheckboxes.forEach(checkbox => {
-                const serviceName = checkbox.dataset.service;
-                if (checkbox.checked && !['design', 'frontend', 'backend'].includes(serviceName)) {
-                    totalPrice += parseInt(checkbox.dataset.price);
-                }
-            });
-
-            // Add prices of selected languages
-            languagePills.forEach(pill => {
-                if (pill.classList.contains('active')) {
-                    totalPrice += parseInt(pill.dataset.price);
-                }
-            });
-
-            // Update UI
-            updatePrices();
-        }
-
-        // Add event listeners to main service checkboxes
-        additionalServicesCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                handleMainServiceChange(this);
-            });
-        });
-
-        // Add event listeners to subservice checkboxes
-        subserviceCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function () {
-                handleSubserviceChange(this);
-            });
-        });
-
-        // Add event listeners to language pills
-        languagePills.forEach(pill => {
-            pill.addEventListener('click', function () {
-                const language = this.dataset.language;
-                const languagePrice = parseInt(this.dataset.price);
-
-                if (this.classList.contains('active')) {
-                    // Remove language
-                    this.classList.remove('active');
-                    selectedLanguages = selectedLanguages.filter(lang => lang !== language);
-                    totalPrice -= languagePrice;
-                } else {
-                    // Add language
-                    this.classList.add('active');
-                    selectedLanguages.push(language);
-                    totalPrice += languagePrice;
-                }
-
-                updatePrices();
-            });
-        });
-
-        // Update floating UI with selected services
-        function updateFloatingUI() {
-            // Update selected services list
-            selectedServicesContainer.innerHTML = '';
-
-            // Add main services and their checked subservices
-            for (const serviceName in serviceState) {
-                const service = serviceState[serviceName];
-
-                if (service.checked) {
-                    // Check if any subservices are checked
-                    let hasCheckedSubservices = false;
-                    for (const subserviceName in service.subservices) {
-                        if (service.subservices[subserviceName].checked) {
-                            hasCheckedSubservices = true;
-                            break;
-                        }
-                    }
-
-                    // Add main service heading
-                    const serviceHeading = document.createElement('div');
-                    serviceHeading.classList.add('text-sm', 'font-medium', 'mt-2', 'mb-1');
-
-                    let serviceDisplay = '';
-                    switch (serviceName) {
-                        case 'design':
-                            serviceDisplay = 'Дизайн';
-                            break;
-                        case 'frontend':
-                            serviceDisplay = 'Front-End';
-                            break;
-                        case 'backend':
-                            serviceDisplay = 'Back-End';
-                            break;
-                        default:
-                            serviceDisplay = serviceName;
-                    }
-
-                    serviceHeading.textContent = serviceDisplay;
-                    selectedServicesContainer.appendChild(serviceHeading);
-
-                    // Add checked subservices or main service if all subservices unchecked
-                    if (hasCheckedSubservices) {
-                        for (const subserviceName in service.subservices) {
-                            const subservice = service.subservices[subserviceName];
-                            if (subservice.checked) {
-                                let subserviceDisplay = '';
-
-                                // Map subservice names to display names
-                                switch (subserviceName) {
-                                    case 'ui-ux':
-                                        subserviceDisplay = 'UI/UX дизайн';
-                                        break;
-                                    case 'prototyping':
-                                        subserviceDisplay = 'Прототипирование';
-                                        break;
-                                    case 'branding':
-                                        subserviceDisplay = 'Брендирование';
-                                        break;
-                                    case 'adaptive':
-                                        subserviceDisplay = 'Адаптивная верстка';
-                                        break;
-                                    case 'interactive':
-                                        subserviceDisplay = 'Интерактивные элементы';
-                                        break;
-                                    case 'optimization':
-                                        subserviceDisplay = 'Оптимизация скорости';
-                                        break;
-                                    case 'cms-crm':
-                                        subserviceDisplay = 'Интеграция CMS/CRM';
-                                        break;
-                                    case 'programming':
-                                        subserviceDisplay = 'Программирование функций';
-                                        break;
-                                    case 'security':
-                                        subserviceDisplay = 'Меры безопасности';
-                                        break;
-                                    default:
-                                        subserviceDisplay = subserviceName;
-                                }
-
-                                const subserviceElement = document.createElement('div');
-                                subserviceElement.classList.add('flex', 'justify-between', 'text-xs', 'text-gray-600', 'mb-1', 'pl-2');
-                                subserviceElement.innerHTML = `
-                                        <span>${subserviceDisplay}</span>
-                                        <span>${formatPrice(subservice.price)}</span>
-                                    `;
-                                selectedServicesContainer.appendChild(subserviceElement);
-                            }
-                        }
-                    } else {
-                        const serviceElement = document.createElement('div');
-                        serviceElement.classList.add('flex', 'justify-between', 'text-xs', 'text-gray-600', 'mb-1', 'pl-2');
-                        serviceElement.innerHTML = `
-                                <span>Полный пакет</span>
-                                <span>${formatPrice(service.price)}</span>
-                            `;
-                        selectedServicesContainer.appendChild(serviceElement);
-                    }
-                }
-            }
-
-            // Add additional services
-            additionalServicesCheckboxes.forEach(checkbox => {
-                if (checkbox.checked && !['design', 'frontend', 'backend'].includes(checkbox.dataset.service)) {
-                    const servicePrice = parseInt(checkbox.dataset.price);
-                    const serviceNameText = checkbox.parentElement.querySelector('span').textContent.split(' ')[0];
-
-                    const serviceElement = document.createElement('div');
-                    serviceElement.classList.add('flex', 'justify-between', 'text-sm', 'font-medium', 'mt-2', 'mb-1');
-                    serviceElement.innerHTML = `
-                            <span>${serviceNameText}</span>
-                            <span>${formatPrice(servicePrice)}</span>
-                        `;
-                    selectedServicesContainer.appendChild(serviceElement);
-                }
-            });
-
-            // Update selected languages list
-            selectedLanguagesContainer.innerHTML = '';
-            if (selectedLanguages.length > 0) {
-                const languageHeader = document.createElement('div');
-                languageHeader.classList.add('text-sm', 'font-medium', 'mt-3', 'mb-1');
-                languageHeader.textContent = 'Языки:';
-                selectedLanguagesContainer.appendChild(languageHeader);
-
-                languagePills.forEach(pill => {
-                    if (pill.classList.contains('active')) {
-                        const languagePrice = parseInt(pill.dataset.price);
-                        const languageName = pill.textContent.trim();
-
-                        const languageElement = document.createElement('div');
-                        languageElement.classList.add('flex', 'justify-between', 'text-sm', 'mb-1');
-                        languageElement.innerHTML = `
-                                <span>${languageName}</span>
-                                <span>${formatPrice(languagePrice)}</span>
-                            `;
-                        selectedLanguagesContainer.appendChild(languageElement);
-                    }
+                    // Show corresponding content
+                    document.getElementById(target).classList.add('tab-content-active');
                 });
-            }
+            });
 
-            // Update height if expanded
-            if (isFloatingUiExpanded) {
+            // Animate skill bars on page load
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0';
                 setTimeout(() => {
-                    floatingContent.style.height = 'auto';
-                    const height = floatingContent.scrollHeight + 'px';
-                    floatingContent.style.height = height;
-                }, 10);
-            }
-        }
-
-        // Initialize the UI
-        calculateInitialPrice();
-    });
-</script>
+                    bar.style.width = width;
+                }, 300);
+            });
+        });
+    </script>
 </body>
 </html>
