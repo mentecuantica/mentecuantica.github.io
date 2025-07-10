@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)https://www.genspark.ai/api/page_private?id=syyfhjmh -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efimov Iurii -  Reverse Engineer</title>
+    <link href="css/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0.125rem;
+            display: inline-block;
+        }
+        
+        .section-header {
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-item i {
+            width: 20px;
+            color: #667eea;
+            margin-right: 0.75rem;
+        }
+        
+        .experience-item {
+            border-left: 3px solid #667eea;
+            padding-left: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+        }
+        
+        .skill-category {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+         {
+            body { -webkit-print-color-adjust: exact; color-adjust: exact; }
+            .gradient-bg { background: #667eea !important; }
+            .skill-tag { background: #667eea !important; }
+        }
+    </style>
+<style id="genspark-badge">
+    .genspark-badge-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .genspark-modal {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 10000;
+      justify-content: end;
+    }
+    
+    .genspark-modal-content {
+      background-color: white;
+      border-radius: 8px;
+      max-width: 450px;
+      width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      position: relative;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 14px;
+    }
+    @media (max-width: 768px) {
+      .genspark-modal-content {
+        max-width: 90%;
+      }
+    }
+    
+    .genspark-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    .genspark-title {
+      margin-bottom: 8px;
+      font-weight: normal;
+      display: inline;
+      font-size: 14px;
+    }
+    
+    .genspark-report {
+      color: #909499;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-bottom: 14px;
+      display: inline;
+    }
+    
+    .genspark-info {
+      margin: 25px 0;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .genspark-buttons {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .genspark-remove-btn {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      color: #333;
+      padding: 4px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      flex: 1;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    
+    .genspark-go-btn {
+      background-color: #222;
+      border: none;
+      color: white;
+      padding: 4px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      flex: 1;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+  </style><style>
+    .genspark-notice-dialog {
+      display: flex;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .genspark-notice-content {
+      background-color: white;
+      border-radius: 8px;
+      max-width: 600px;
+      width: 90%;
+      box-sizing: border-box;
+      padding: 10px 30px 30px 30px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-size: 16px;
+    }
+
+    .genspark-notice-title {
+      color: #000;
+      font-family: Arial;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%; 
+    }
+
+    .genspark-notice-list {
+      margin: 24px 0;
+      
+      color: #606366;
+      font-family: Arial;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%;
+      padding-left: 12px;
+    }
+
+    .genspark-notice-list li {
+      margin-bottom: 12px;
+      list-style-type: disc;
+    }
+
+    .genspark-notice-list li a {
+      color: #606366;
+      text-decoration: underline;
+    }
+
+    .genspark-notice-checkbox {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+      gap: 10px;
+
+      color: #232425;
+
+      font-family: Arial;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+
+    .genspark-notice-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+      
+    .genspark-notice-ok {
+      color: #232425;
+
+      text-align: center;
+      font-family: Arial;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 150%; 
+
+      cursor: pointer;
+      display: flex;
+      height: 40px;
+      padding: 6px 14px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      align-self: stretch;
+      border-radius: 8px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+      width: 100%;
+    }
+  </style></head>
+<body class="bg-gray-50">
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl">
+        <!-- Header -->
+        <div class="gradient-bg text-white p-8">
+            <div class="flex flex-col md:flex-row justify-between items-start">
+                <div>
+                    <h1 class="text-4xl font-bold mb-2">Efimov Iurii</h1>
+                    <h2 class="text-xl font-medium mb-4">Reverse Engineer (Android-focused)</h2>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Yekarterinburg, Russia</span>
+                    </div>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <div class="contact-item">
+                        <i class="fab fa-telegram"></i>
+                        <a href="https://t.me/bienbien69" class="hover:underline">@bienbien69</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:yura.karas@gmail.com" class="hover:underline">yura.karas@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <a href="https://github.com/mentecuantica" class="hover:underline">github.com/mentecuantica</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-8">
+            <!-- Objective -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-bullseye mr-3 text-purple-600"></i>
+                    Objective
+                </h3>
+                <p class="text-gray-700 leading-relaxed">
+                    Apply my expertise in Python and reverse engineering to work in antifraud, Android Reverse Engineering, and mobile security. Open to learning and deepening telecom stack knowledge. Starting salary — <strong>$40,000/year</strong>, flexible approach.
+                </p>
+            </section>
+
+            <!-- Profile -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-user mr-3 text-purple-600"></i>
+                    Profile
+                </h3>
+                <p class="text-gray-700 leading-relaxed">
+                    A seasoned Python Developer with 9+ years of experience and a profound passion for reverse engineering and mobile security. I have spent recent years honing my expertise in Android APK analysis, bypassing security measures, and automating complex tasks. I am eager to leverage my skills to enhance your security stack and transition into a full-time R&D role
+                   </p>
+                <p class="text-gray-700 leading-relaxed mt-3">
+                    Possess engineering discipline, ability to understand complex systems, and quickly deliver PoCs. Write clean code, automate repetitive tasks, learn quickly, and am not afraid of documentation.
+                </p>
+            </section>
+
+            <!-- Key Skills -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-cogs mr-3 text-purple-600"></i>
+                    Key Skills
+                </h3>
+                
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Reverse Engineering</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Android: smali, DEX, JADX</span>
+                        <span class="skill-tag">Frida</span>
+                        <span class="skill-tag">TLS Bypass (practical)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Programming Languages</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Python (Expert)</span>
+                        <span class="skill-tag">PHP (Advanced)</span>
+                        <span class="skill-tag">Assembler x86/ARM (Intermediate)</span>
+                        <span class="skill-tag">Java (Intermediate)</span>
+                        <span class="skill-tag">JavaScript (Intermediate)</span>
+                        <span class="skill-tag">C (Intermediate)</span>
+                        <span class="skill-tag">C++ (Basic)</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Security</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Mobile Analysis</span>
+                        <span class="skill-tag">TLS Interception</span>
+                        <span class="skill-tag">ADB Debugging</span>
+                        <span class="skill-tag">Basic Cryptography</span>
+                        <span class="skill-tag">Symmetric/Asymmetric Encryption</span>
+                        <span class="skill-tag">Hashing</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Automation</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Frida Automation</span>
+                        <span class="skill-tag">OpenAI/GPT-4o for Smali Commenting</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Infrastructure</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">GitLab CI</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h4 class="font-semibold text-lg text-gray-800 mb-3">Tools</h4>
+                    <div class="flex flex-wrap">
+                        <span class="skill-tag">Ghidra</span>
+                        <span class="skill-tag">IDA Pro</span>
+                        <span class="skill-tag">OllyDbg</span>
+                        <span class="skill-tag">JADX</span>
+                        <span class="skill-tag">Burp Suite</span>
+                        <span class="skill-tag">mitmproxy</span>
+                        <span class="skill-tag">Wireshark</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">JIRA</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Languages -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-globe mr-3 text-purple-600"></i>
+                    Languages
+                </h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg">Russian</h4>
+                        <p class="text-purple-600 font-medium">Native</p>
+                        <p class="text-gray-600 text-sm">100% oral and written communication</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg">English</h4>
+                        <p class="text-purple-600 font-medium">Working Proficiency</p>
+                        <p class="text-gray-600 text-sm">Documentation, correspondence, verbal communication</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg">Spanish</h4>
+                        <p class="text-purple-600 font-medium">Beginner</p>
+                        <p class="text-gray-600 text-sm">Eductation level, continuing practice</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Project Examples -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-project-diagram mr-3 text-purple-600"></i>
+                    Project Examples
+                </h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg text-purple-700 mb-2">TLS Pinning Bypass</h4>
+                        <p class="text-gray-700">Manually implemented scripts for TLS verification removal (via SSLContext/X509TrustManager), at PoC level.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg text-purple-700 mb-2">APK Analysis</h4>
+                        <p class="text-gray-700">Worked with fintech applications (without publication), verified security, commented smali code, documented findings.</p>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg text-purple-700 mb-2">IDA Pro Scripts (Repository: <a href="https://github.com/mentecuantica/idapro-python" class="text-purple-600 hover:underline">idapro-python</a>)</h4>
+                        <p class="text-gray-700">Set of IDAPython utilities for binary analysis: automatic string pattern search, function renaming, quick code section traversal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Work Experience -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-briefcase mr-3 text-purple-600"></i>
+                    Work Experience
+                </h3>
+                
+                <div class="experience-item">
+                    <h4 class="text-xl font-semibold text-gray-800">Middle+ Python Developer / Security Researcher (Independent Contractor | Self-Employed) </h4>
+                    <p class="text-purple-600 font-medium mb-2">2023 — Present</p>
+                    <p class="text-gray-700">Automation of audits, traffic analysis, maintenance of pet projects in Android security.</p>
+                </div>
+
+                <div class="experience-item">
+                    <h4 class="text-xl font-semibold text-gray-800">Backend Developer / Mentor / Automator</h4>
+                    <p class="text-purple-600 font-medium mb-2">2015 — 2023</p>
+                    <p class="text-gray-700">API development, CI/CD maintenance, training junior developers, monitoring and integration scripts.</p>
+                </div>
+
+                <div class="experience-item">
+                    <h4 class="text-xl font-semibold text-gray-800">Web Developer</h4>
+                    <p class="text-purple-600 font-medium mb-2">2008 — 2015</p>
+                    <p class="text-gray-700">Web development, database design, server architecture.</p>
+                </div>
+            </section>
+
+            <!-- Education -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-graduation-cap mr-3 text-purple-600"></i>
+                    Education
+                </h3>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <h4 class="text-lg font-semibold text-gray-800">Ural Federal University (UrFU)</h4>
+                    <p class="text-purple-600 font-medium">Accelerated Education Faculty · Specialist, 2010</p>
+                </div>
+            </section>
+
+            <!-- Collaboration Terms -->
+            <section class="mb-8">
+                <h3 class="text-2xl font-bold text-gray-800 section-header flex items-center">
+                    <i class="fas fa-handshake mr-3 text-purple-600"></i>
+                    Collaboration Terms
+                </h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-purple-600 w-6"></i>
+                            <span class="font-medium">Format:</span>
+                            <span class="ml-2">Full Remote / B2B</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-dollar-sign text-purple-600 w-6"></i>
+                            <span class="font-medium">Expectations:</span>
+                            <span class="ml-2"><strong>$40,000 USD per year</strong></span>
+                        </div>
+                        <div class="flex items-center text-sm text-gray-600">
+                            <i class="fas fa-arrow-up text-purple-600 w-6"></i>
+                            <span>Growth opportunity after probation period</span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center">
+                            <i class="fas fa-credit-card text-purple-600 w-6"></i>
+                            <span class="font-medium">Payment:</span>
+                            <span class="ml-2">USDT (TRC20) / SWIFT</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-calendar text-purple-600 w-6"></i>
+                            <span class="font-medium">Available from:</span>
+                            <span class="ml-2"><strong>August 1, 2025</strong></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+<script defer="" src="css/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon="{&quot;rayId&quot;:&quot;95ca9896ec5549b9&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfEdge&quot;:true,&quot;cfOrigin&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.6.2&quot;,&quot;token&quot;:&quot;4edd5f8ec12a48cfa682ab8261b80a79&quot;}" crossorigin="anonymous"></script>
+
+
+   
+    
+ 
+        
+    <script id="html_notice_dialog_script" src="css/notice_dialog.js"></script>
+    </body></html>
